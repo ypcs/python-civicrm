@@ -108,6 +108,7 @@ getaction if you must.
 
 from __future__ import absolute_import, print_function, unicode_literals
 
+import json
 import re
 import requests
 
@@ -209,6 +210,17 @@ class CiviCRM:
         """
         for badparam in notparams:
             parameters.pop(badparam, None)
+
+        params_json = {}
+        params = {}
+
+        for p in parameters:
+            if param.startswith('options['):
+                params = parameters.get(p)
+            else:
+                params_json = parameters.get(p)
+        params['json'] = json.dumps(params_json)
+
         # add in parameters
         payload.update(parameters)
         # add sequential:1 if not set (override with sequential:0)
