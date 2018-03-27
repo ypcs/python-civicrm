@@ -245,7 +245,6 @@ class CiviCRM:
             notparams.extend(['body_html', 'body_text'])
         return self._filter_merge_payload(parameters, payload, notparams)
 
-
     def _add_options(self, params, **kwargs):
         """Adds limit and offset etc. keys in form required by REST API
         Takes key=value pairs from dictionary kwargs  and uses them
