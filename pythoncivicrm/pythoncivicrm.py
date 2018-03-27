@@ -110,7 +110,6 @@ from __future__ import absolute_import, print_function, unicode_literals
 
 import re
 import requests
-import json
 
 
 class CivicrmError(Exception):
@@ -155,7 +154,7 @@ class CiviCRM:
         if api_call.status_code != 200:
             raise CivicrmError('request to %s failed with status code %s'
                                % (self.url, api_call.status_code))
-        results = json.loads(api_call.content)
+        results = api_call.json()
         return self._check_results(results)
 
     def _post(self, action, entity, parameters=None):
@@ -170,7 +169,7 @@ class CiviCRM:
         if api_call.status_code != 200:
             raise CivicrmError('request to %s failed with status code %s'
                                % (self.url, api_call.status_code))
-        results = json.loads(api_call.content)
+        results = api_call.json()
         # Some entities return things in the values field
         # that don't conform to the normal use elsewhere
         # Here we check for this and just return straight results
